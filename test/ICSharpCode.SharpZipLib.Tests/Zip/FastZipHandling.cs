@@ -268,7 +268,7 @@ namespace ICSharpCode.SharpZipLib.Tests.Zip
 					{
 						var index = z.FindEntry(name, true);
 
-						Assert.AreNotEqual(index, -1, "Zip entry \"{0}\" not found", name);
+						Assert.AreNotEqual(-1, index, "Zip entry \"{0}\" not found", name);
 
 						var entry = z[index];
 
@@ -283,7 +283,7 @@ namespace ICSharpCode.SharpZipLib.Tests.Zip
 
 						Assert.AreEqual(name, entry.Name);
 
-						var nameBytes = string.Join(" ", Encoding.BigEndianUnicode.GetBytes(entry.Name).Select(b => b.ToString("x2")));
+						var nameBytes = string.Join(" ", Encoding.BigEndianUnicode.GetBytes(entry.Name).Select(b => b.ToString("x2")).ToArray());
 
 						Console.WriteLine($" - Zip entry: {entry.Name} ({nameBytes})");
 					}
@@ -317,7 +317,9 @@ namespace ICSharpCode.SharpZipLib.Tests.Zip
 			var preCp = ZipStrings.CodePage;
 			try
 			{
+#if !NET35
 				Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+#endif
 
 				foreach ((string language, string filename, string encoding) in StringTesting.GetTestSamples())
 				{
@@ -606,7 +608,12 @@ namespace ICSharpCode.SharpZipLib.Tests.Zip
 			EnsureTestDirectoryIsEmpty(tempFilePath);
 
 			var modifiedTime = new DateTime(2001, 1, 2);
-			string targetDir = Path.Combine(tempFilePath, ZipTempDir, nameof(SetDirectoryModifiedDate));
+			string targetDir =
+#if NET35
+				Path.Combine(Path.Combine(tempFilePath, ZipTempDir), nameof(SetDirectoryModifiedDate));
+#else
+				Path.Combine(tempFilePath, ZipTempDir, nameof(SetDirectoryModifiedDate));
+#endif
 			using (FileStream fs = File.Create(zipName))
 			{
 				using (ZipOutputStream zOut = new ZipOutputStream(fs))
@@ -669,7 +676,7 @@ namespace ICSharpCode.SharpZipLib.Tests.Zip
 				var target = new TrackedMemoryStream();
 				var fastZip = new FastZip();
 
-     			fastZip.CreateZip(target, tempFolder.Fullpath, false, @"a\(2\)\.dat", null, leaveOpen: leaveOpen);
+				fastZip.CreateZip(target, tempFolder.Fullpath, false, @"a\(2\)\.dat", null, leaveOpen: leaveOpen);
 
 				// Check that the output stream was disposed (or not) as expected
 				Assert.That(target.IsDisposed, Is.Not.EqualTo(leaveOpen), "IsDisposed should be the opposite of leaveOpen");
@@ -823,8 +830,8 @@ namespace ICSharpCode.SharpZipLib.Tests.Zip
 		private static DateTime TestTargetTime(TimeSetting ts)
 		{
 			var dtk = ts == TimeSetting.CreateTimeUtc 
-			       || ts == TimeSetting.LastWriteTimeUtc
-			       || ts == TimeSetting.LastAccessTimeUtc
+				   || ts == TimeSetting.LastWriteTimeUtc
+				   || ts == TimeSetting.LastAccessTimeUtc
 				? DateTimeKind.Utc
 				: DateTimeKind.Local;
 

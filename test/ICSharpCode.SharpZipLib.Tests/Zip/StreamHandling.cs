@@ -207,7 +207,7 @@ namespace ICSharpCode.SharpZipLib.Tests.Zip
 					var ze = new ZipEntry("Striped Marlin");
 					outStream.PutNextEntry(ze);
 
-					var buffer = Array.Empty<byte>();
+					var buffer = new byte[0];
 					outStream.Write(buffer, 0, 0);
 				}
 

@@ -94,10 +94,19 @@ namespace ICSharpCode.SharpZipLib.Encryption
 		}
 
 		/// <inheritdoc/>
+#if NET35
+		public Task<int> ReadAsync(byte[] buffer, int offset, int count, CancellationToken cancellationToken)
+#else
 		public override Task<int> ReadAsync(byte[] buffer, int offset, int count, CancellationToken cancellationToken)
+#endif
 		{
 			var readCount = Read(buffer, offset, count);
+#if NET35
+			return TaskEx.FromResult(readCount);
+#else
 			return Task.FromResult(readCount);
+#endif
+
 		}
 
 		// Read data from the underlying stream and decrypt it

@@ -876,7 +876,9 @@ namespace ICSharpCode.SharpZipLib.Tests.Zip
 		[Category("Zip")]
 		public void UnicodeNameConversion()
 		{
+#if !NET35
 			Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+#endif
 
 			ZipStrings.CodePage = 850;
 			string sample = "Hello world";

@@ -65,7 +65,9 @@ namespace ICSharpCode.SharpZipLib.Checksum
 		/// Assumes input[offset]..input[offset + 15] are valid array indexes.
 		/// For performance reasons, this must be checked by the caller.
 		/// </remarks>
+#if !NET35
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+#endif
 		internal static uint UpdateDataForNormalPoly(byte[] input, int offset, uint[] crcTable, uint checkValue)
 		{
 			byte x1 = (byte)((byte)(checkValue >> 24) ^ input[offset]);
@@ -90,7 +92,9 @@ namespace ICSharpCode.SharpZipLib.Checksum
 		/// Assumes input[offset]..input[offset + 15] are valid array indexes.
 		/// For performance reasons, this must be checked by the caller.
 		/// </remarks>
+#if !NET35
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+#endif
 		internal static uint UpdateDataForReversedPoly(byte[] input, int offset, uint[] crcTable, uint checkValue)
 		{
 			byte x1 = (byte)((byte)checkValue ^ input[offset]);
@@ -130,7 +134,9 @@ namespace ICSharpCode.SharpZipLib.Checksum
 		/// calculations.
 		/// </para>
 		/// </remarks>
+#if !NET35
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+#endif
 		private static uint UpdateDataCommon(byte[] input, int offset, uint[] crcTable, byte x1, byte x2, byte x3, byte x4)
 		{
 			uint result;

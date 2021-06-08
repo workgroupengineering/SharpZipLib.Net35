@@ -56,7 +56,9 @@ namespace ICSharpCode.SharpZipLib.Checksum
 
 		#endregion Instance Fields
 
+#if !NET35
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+#endif
 		internal static uint ComputeCrc32(uint oldCrc, byte bval)
 		{
 			return (uint)(Crc32.crcTable[(oldCrc ^ bval) & 0xFF] ^ (oldCrc >> 8));
@@ -97,7 +99,9 @@ namespace ICSharpCode.SharpZipLib.Checksum
 		/// the byte is taken as the lower 8 bits of bval
 		/// </param>
 		/// <remarks>Reversed Data = true</remarks>
+#if !NET35
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+#endif
 		public void Update(int bval)
 		{
 			checkValue = unchecked(crcTable[(checkValue ^ bval) & 0xFF] ^ (checkValue >> 8));

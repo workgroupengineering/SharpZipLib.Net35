@@ -1,4 +1,8 @@
-# SharpZipLib [![Build Status](https://github.com/icsharpcode/SharpZipLib/actions/workflows/build-test.yml/badge.svg?branch=master)](https://github.com/icsharpcode/SharpZipLib/actions/workflows/build-test.yml) [![NuGet Version](https://img.shields.io/nuget/v/SharpZipLib.svg)](https://www.nuget.org/packages/SharpZipLib/)
+# **Unofficial** backport of SharpZipLib on **.Net Framework 3.5** [![Build Status](https://github.com/workgroupengineering/SharpZipLib.Net35/actions/workflows/build-test.yml/badge.svg?branch=net35)](https://github.com/workgroupengineering/SharpZipLib.Net35/actions/workflows/build-test.yml)
+
+This backport arises from the need for maintenance of old software written in .NET 3.5 that are not portable to later versions of .net because they depend on proprietary libraries that are no longer supported.
+
+# **Official**  SharpZipLib [![Build Status](https://github.com/icsharpcode/SharpZipLib/actions/workflows/build-test.yml/badge.svg?branch=master)](https://github.com/icsharpcode/SharpZipLib/actions/workflows/build-test.yml) [![NuGet Version](https://img.shields.io/nuget/v/SharpZipLib.svg)](https://www.nuget.org/packages/SharpZipLib/)
 
 Introduction
 ------------

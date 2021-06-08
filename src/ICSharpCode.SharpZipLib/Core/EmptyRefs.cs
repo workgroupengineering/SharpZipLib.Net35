@@ -4,7 +4,7 @@ namespace ICSharpCode.SharpZipLib.Core
 {
 	internal static class Empty
 	{
-#if NET45
+#if NET45 || NET35
 		internal static class EmptyArray<T>
 		{
 			public static readonly T[] Value = new T[0];

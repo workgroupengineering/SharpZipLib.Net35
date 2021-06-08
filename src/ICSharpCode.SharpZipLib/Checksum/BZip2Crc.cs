@@ -95,7 +95,9 @@ namespace ICSharpCode.SharpZipLib.Checksum
 		/// the byte is taken as the lower 8 bits of bval
 		/// </param>
 		/// <remarks>Reversed Data = false</remarks>
+#if !NET35
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+#endif
 		public void Update(int bval)
 		{
 			checkValue = unchecked(crcTable[(byte)(((checkValue >> 24) & 0xFF) ^ bval)] ^ (checkValue << 8));

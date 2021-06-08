@@ -444,10 +444,17 @@ namespace ICSharpCode.SharpZipLib.Encryption
 		public override void GenerateKey()
 		{
 			key_ = new byte[12];
+#if NET35
+			{
+				var rng = new RNGCryptoServiceProvider();
+				rng.GetBytes(key_);
+			}
+#else
 			using (var rng = new RNGCryptoServiceProvider())
 			{
 				rng.GetBytes(key_);
 			}
+#endif
 		}
 
 		/// <summary>
@@ -478,10 +485,10 @@ namespace ICSharpCode.SharpZipLib.Encryption
 			return new PkzipClassicDecryptCryptoTransform(Key);
 		}
 
-		#region Instance Fields
+#region Instance Fields
 
 		private byte[] key_;
 
-		#endregion Instance Fields
+#endregion Instance Fields
 	}
 }
