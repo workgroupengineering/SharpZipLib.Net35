@@ -3,6 +3,7 @@
   <PropertyGroup>
     <OutputType>Library</OutputType>
     <TargetFrameworks>net35;net461;net471;netcoreapp3.1</TargetFrameworks>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>

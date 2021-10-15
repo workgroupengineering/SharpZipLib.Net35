@@ -703,7 +703,8 @@ namespace ICSharpCode.SharpZipLib.Zip
 			{
 				rng.GetBytes(cryptBuffer);
 			}
-#endif			
+#endif
+
 			cryptBuffer[11] = (byte)(crcValue >> 24);
 
 			EncryptBlock(cryptBuffer, 0, cryptBuffer.Length);
@@ -1011,7 +1012,7 @@ namespace ICSharpCode.SharpZipLib.Zip
 			}
 		}
 
-#region Instance Fields
+		#region Instance Fields
 
 		/// <summary>
 		/// The entries for the archive.
@@ -1073,13 +1074,13 @@ namespace ICSharpCode.SharpZipLib.Zip
 		/// </summary>
 		private string password;
 
-#endregion Instance Fields
+		#endregion Instance Fields
 
-#region Static Fields
+		#region Static Fields
 
 		// Static to help ensure that multiple files within a zip will get different random salt
 		private static RandomNumberGenerator _aesRnd = RandomNumberGenerator.Create();
 
-#endregion Static Fields
+		#endregion Static Fields
 	}
 }
