@@ -140,6 +140,7 @@ jobs:
            repository: icsharpcode/SharpZipLib
            ref: refs/heads/master
       - name: Changelog
+        continue-on-error: true 
         run: |
           git fetch --tags
           currentversion=v${{ needs.Pack.outputs.nbgv }} 
